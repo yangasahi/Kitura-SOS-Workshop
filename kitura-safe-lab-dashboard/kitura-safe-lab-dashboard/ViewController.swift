@@ -11,16 +11,22 @@ import Starscream
 import MapKit
 
 class ViewController: NSViewController {
+    var disasterClient = DisasterSocketClientDashboard(address: "localhost:8080")
+    var annotationProcessingQueue = DispatchQueue(label: "com.ibm.annotationProcessingQueue")
     @IBOutlet weak var mapView: MKMapView?
     var annotations = [PersonAnnotation]()
     
     override func viewDidAppear() {
         super.viewDidAppear()
+        disasterClient.delegate = self
+        mapView?.delegate = self
     }
 }
 
 extension ViewController { //IBActions
     @IBAction func connectDashboard(target: Any) {
+        
+        disasterClient.attemptConnection()
         
     }
     
@@ -37,8 +43,13 @@ extension ViewController { //IBActions
 }
 
 extension ViewController: DisasterSegueConfirmationViewControllerDelegate {
-    func disasterSegueConfirmationViewControllerDidConfirmDisasterName(controller: DisasterSegueConfirmationViewController, name: String) {
+    func vcConfDisasterName(controller: DisasterSegueConfirmationViewController, name: String) {
         controller.dismiss(nil)
+        guard let location = mapView?.userLocation.coordinate else {
+            return
+        }
+        let disaster = Disaster(coordinate: Coordinate(latitude: location.latitude, longitude: location.longitude), name: name)
+        disasterClient.simulate(disaster)
     }
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
@@ -75,5 +86,68 @@ extension ViewController: MKMapViewDelegate {
         view.animatesDrop = true
         view.canShowCallout = true
         return view
+    }
+}
+
+extension ViewController: DisasterSocketClientDashboardDelegate {
+    func statusReported(client: DisasterSocketClientDashboard, person: Person) {
+        
+        annotationProcessingQueue.sync {
+            let coordinate = CLLocationCoordinate2D(latitude: person.coordinate.latitude, longitude: person.coordinate.longitude)
+            if person.status.status == "Unreported" {
+                let newAnnotation = UnreportedPersonAnnotation(coordinate: coordinate, person: person)
+                self.annotations.append(newAnnotation)
+                drop(newAnnotation)
+            }
+            else if person.status.status == "Safe" {
+                removeDuplicateAnnotations(for: person)
+                let newAnnotation = SafePersonAnnotation(coordinate: coordinate, person: person)
+                self.annotations.append(newAnnotation)
+                drop(newAnnotation)
+            }
+            else if person.status.status == "Unsafe" {
+                removeDuplicateAnnotations(for: person)
+                let newAnnotation = UnsafePersonAnnotation(coordinate: coordinate, person: person)
+                self.annotations.append(newAnnotation)
+                drop(newAnnotation)
+            }
+        }
+        
+    }
+    
+    func removeDuplicateAnnotations(for person: Person) {
+        
+        let existingAnnotation = self.annotations.filter { $0.person?.id == person.id }
+        self.annotations = self.annotations.filter { $0.person?.id != person.id }
+        DispatchQueue.main.async {
+            self.mapView?.removeAnnotations(existingAnnotation)
+        }
+        
+    }
+    
+    func clientConnected(client: DisasterSocketClientDashboard) {
+        guard let currentLocation = mapView?.userLocation.coordinate else {
+            return
+        }
+        let region = MKCoordinateRegion(center: currentLocation, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        self.mapView?.setRegion(region, animated: true)
+    }
+    
+    func clientDisconnected(client: DisasterSocketClientDashboard) {
+        print("client disconnected")
+    }
+    
+    func clientErrorOccurred(client: DisasterSocketClientDashboard, error: Error) {
+        print("error occurred: \(error.localizedDescription)")
+    }
+    
+    func clientReceivedToken(client: DisasterSocketClientDashboard, token: RegistrationToken) {
+        
+        guard let currentLocation = mapView?.userLocation.coordinate else {
+            return
+        }
+        let dashboard = Dashboard(coordinate: Coordinate(latitude: currentLocation.latitude, longitude: currentLocation.longitude), dashboardID: token.tokenID)
+        client.confirm(dashboard)
+        
     }
 }

@@ -16,7 +16,7 @@ struct Coordinate: Codable, Hashable {
     var longitude: Double
 }
 
-struct Person: Codable, Hashable {
+struct Person: Codable {
     static func == (lhs: Person, rhs: Person) -> Bool {
         return lhs.id == rhs.id
     }
@@ -39,4 +39,12 @@ struct Dashboard: Codable {
 
 struct RegistrationToken: Codable {
     var tokenID: String
+}
+
+struct StatsStructure: Codable {
+    var safePercentage: Double
+    var unsafePercentage: Double
+    var unreportedPercentage: Double
+    var startTime: String
+    var currentTime: String
 }

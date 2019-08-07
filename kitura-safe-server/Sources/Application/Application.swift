@@ -6,14 +6,17 @@ import CloudEnvironment
 import KituraContracts
 import Health
 import KituraOpenAPI
+import KituraWebSocket
 
 public let projectPath = ConfigurationManager.BasePath.project.path
 public let health = Health()
+public var startDate = String()
 
 public class App {
     let router = Router()
     let cloudEnv = CloudEnv()
-
+    let disasterService = DisasterSocketService()
+    
     public init() throws {
         // Run the metrics initializer
         initializeMetrics(router: router)
@@ -21,7 +24,15 @@ public class App {
 
     func postInit() throws {
         // Endpoints
+        let date: Date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T 'HH:mm:ss"
+        startDate = dateFormatter.string(from: date)
         initializeHealthRoutes(app: self)
+        WebSocket.register(service: DisasterSocketService(), onPath: "/disaster")
+        router.get("/users", handler: getAllHandler)
+        router.get("/users", handler: getOneHandler)
+        router.get("/stats", handler: getStatsHandler)
     }
 
     public func run() throws {
@@ -30,4 +41,18 @@ public class App {
         Kitura.addHTTPServer(onPort: cloudEnv.port, with: router)
         Kitura.run()
     }
+    
+    func getAllHandler(completion: ([Person]?, RequestError?) -> Void ) {
+        return completion(disasterService.getAllConnections(), nil)
+    }
+    
+    func getOneHandler(id: String, completion:(Person?, RequestError?) -> Void ) {
+        return completion(disasterService.getOnePerson(id: id), nil)
+    }
+    
+    func getStatsHandler(completion: (StatsStructure?, RequestError?) -> Void ) {
+        return completion(disasterService.getStats(), nil)
+    }
+    
+    
 }
