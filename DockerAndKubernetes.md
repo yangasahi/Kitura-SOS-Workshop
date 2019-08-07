@@ -1,4 +1,4 @@
-# Kitura "SOS" Workshop
+# Kitura SOS Workshop
 
 <p align="center">
 <img src="https://www.ibm.com/cloud-computing/bluemix/sites/default/files/assets/page/catalog-swift.svg" width="120" alt="Kitura Bird">
