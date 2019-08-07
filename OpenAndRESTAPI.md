@@ -67,7 +67,7 @@ A request to load all of the stored data typically consists of a `GET` request w
     return completion(disasterService.getAllConnections(), nil)
   }
   ```
-4. Refresh SwaggerUI again and view your new GET route. Clicking "Try it out!" will return the empty array (because there are no current connections to the server), but experiment with connecting to the server and using the GET method to see all the connections. REST APIs are easy!
+4. Restart your server and refresh SwaggerUI again and view your new GET route. Clicking "Try it out!" will return the empty array (because there are no current connections to the server), but experiment with connecting to the server and using the GET method to see all the connections. REST APIs are easy!
 
 ## Add Support for handling a `GET` request on `/users:id`
 
@@ -97,7 +97,7 @@ For this request, we want to return all the info on a specific user by using the
         return completion(disasterService.getOnePerson(id: id), nil)
     }
   ```
-4. Refresh SwaggerUI again and view your new GET route.
+4. Restart your server and refresh SwaggerUI again and view your new GET route.
 
 ## Add Support for handling a `GET` request on `/stats`
 
@@ -195,7 +195,7 @@ struct StatsStructure: Codable {
         return completion(disasterService.getStats(), nil)
     }
   ```
-6. Refresh SwaggerUI again and view your new GET route.
+6. Restart your server and refresh SwaggerUI again and view your new GET route.
 
 # Next Steps
 

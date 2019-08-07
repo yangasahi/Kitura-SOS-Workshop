@@ -23,25 +23,25 @@
 
 # iOS Client Set Up
 
-Open your iOS project with the `.xcworkspace` file. Open the `DisasterSocketClient.swift` file and add the following code:
+Open your iOS project with the `.xcworkspace` file. Open the `DisasterSocketClientiOS.swift` file and add the following code underneath `import Foundation`:
 
 ```swift
 import Starscream
 
-protocol DisasterSocketClientDelegate: class {
-    func clientConnected(client: DisasterSocketClient)
-    func clientDisconnected(client: DisasterSocketClient)
-    func clientErrorOccurred(client: DisasterSocketClient, error: Error)
-    func clientReceivedToken(client: DisasterSocketClient, token: RegistrationToken)
-    func clientReceivedDisaster(client: DisasterSocketClient, disaster: Disaster)
+protocol DisasterSocketClientiOSDelegate: class {
+    func clientConnected(client: DisasterSocketClientiOS)
+    func clientDisconnected(client: DisasterSocketClientiOS)
+    func clientErrorOccurred(client: DisasterSocketClientiOS, error: Error)
+    func clientReceivedToken(client: DisasterSocketClientiOS, token: RegistrationToken)
+    func clientReceivedDisaster(client: DisasterSocketClientiOS, disaster: Disaster)
 }
 
 enum DisasterSocketError: Error {
     case badConnection
 }
 
-class DisasterSocketClient {
-    weak var delegate: DisasterSocketClientDelegate?
+class DisasterSocketClientiOS {
+    weak var delegate: DisasterSocketClientiOSDelegate?
     var address: String
     var person: Person?
     public var disasterSocket: WebSocket?
@@ -52,10 +52,10 @@ class DisasterSocketClient {
 }
 ```
 
-Next, let's make this class conform to the delegate that we need. Add the following extension at the bottom of this file, outside the scope of your `DisasterSocketClient` class:
+Next, let's make this class conform to the delegate that we need. Add the following extension at the bottom of this file, outside the scope of your `DisasterSocketClientiOS` class:
 
 ```swift
-extension DisasterSocketClient: WebSocketDelegate {
+extension DisasterSocketClientiOS: WebSocketDelegate {
     func websocketDidConnect(socket: WebSocketClient) {
         delegate?.clientConnected(client: self)
     }
@@ -79,7 +79,7 @@ extension DisasterSocketClient: WebSocketDelegate {
 }
 ```
 
-This should look familiar. Even though we are referencing one file for our model objects here, this file will actually be distinctly different from our websocket client on our macOS dashboard. Go right underneath your `init` function inside `DisasterSocketClient` and add your connection and disconnection functionality:
+This should look familiar. Even though we are referencing one file for our model objects here, this file will actually be distinctly different from our WebSocket client on our macOS dashboard. Go underneath your `init` function inside `DisasterSocketClientiOS` and add your connection and disconnection functionality:
 
 ```swift   
 public func attemptConnection() {
@@ -104,7 +104,7 @@ Again, this should look familiar. Now, you're going to set up your iOS client to
 class ViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView?
     var locationManager: LocationManager?
-    var disasterClient = DisasterSocketClient(address: "localhost:8080")
+    var disasterClient = DisasterSocketClientiOS(address: "localhost:8080")
     var currentPerson: Person?
 
     override func viewDidAppear(_ animated: Bool) {
@@ -119,24 +119,24 @@ class ViewController: UIViewController {
 Next, let's make the controller conform to the right delegate, so add this extension to the very bottom of this file:
 
 ```swift
-extension ViewController: DisasterSocketClientDelegate {
-    func clientReceivedDisaster(client: DisasterSocketClient, disaster: Disaster) {
+extension ViewController: DisasterSocketClientiOSDelegate {
+    func clientReceivedDisaster(client: DisasterSocketClientiOS, disaster: Disaster) {
 
     }
 
-    func clientReceivedToken(client: DisasterSocketClient, token: RegistrationToken) {
+    func clientReceivedToken(client: DisasterSocketClientiOS, token: RegistrationToken) {
 
     }
 
-    func clientConnected(client: DisasterSocketClient) {
+    func clientConnected(client: DisasterSocketClientiOS) {
         print("websocket client connected")
     }
 
-    func clientDisconnected(client: DisasterSocketClient) {
+    func clientDisconnected(client: DisasterSocketClientiOS) {
         print("websocket client disconnected")
     }
 
-    func clientErrorOccurred(client: DisasterSocketClient, error: Error) {
+    func clientErrorOccurred(client: DisasterSocketClientiOS, error: Error) {
         print("error occurred with websocket client: \(error.localizedDescription)")
     }
 }
@@ -150,7 +150,7 @@ disasterClient.attemptConnection()
 
 Build and run your iOS app. You can test your server if you'd like by adding a breakpoint to the `connected:` function on your server to see if it receives the connection request from the phone when you tap the "Connect" button.
 
-On your phone, instead of responding with a dashboard, you are going to respond to the authentication token with your first use of the `Person` object. Open up `DisasterSocketClient.swift` and add the following code underneath the `disconnect:` function:
+On your phone, instead of responding with a dashboard, you are going to respond to the authentication token with your first use of the `Person` object. Open up `DisasterSocketClientiOS.swift` and add the following code underneath the `disconnect:` function:
 
 ```swift
 public func reportStatus(for person: Person) {

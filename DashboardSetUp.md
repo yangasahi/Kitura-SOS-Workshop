@@ -23,35 +23,35 @@
 
 # Dashboard Set Up
 
-Switch to your macOS client project, and open the `DisasterSocketClient.swift` file in Xcode. Add the following code to this file:
+Switch to your macOS client project, and open the `DisasterSocketClientDashboard.swift` file in Xcode. Add the following code to this file:
 
 ```swift
 import Starscream
 
-protocol DisasterSocketClientDelegate: class {
-    func statusReported(client: DisasterSocketClient, person: Person)
-    func clientConnected(client: DisasterSocketClient)
-    func clientDisconnected(client: DisasterSocketClient)
-    func clientErrorOccurred(client: DisasterSocketClient, error: Error)
-    func clientReceivedToken(client: DisasterSocketClient, token: RegistrationToken)
+protocol DisasterSocketClientDashboardDelegate: class {
+    func statusReported(client: DisasterSocketClientDashboard, person: Person)
+    func clientConnected(client: DisasterSocketClientDashboard)
+    func clientDisconnected(client: DisasterSocketClientDashboard)
+    func clientErrorOccurred(client: DisasterSocketClientDashboard, error: Error)
+    func clientReceivedToken(client: DisasterSocketClientDashboard, token: RegistrationToken)
 }
 
 enum DisasterSocketError: Error {
     case badConnection
 }
 
-class DisasterSocketClient {
+class DisasterSocketClientDashboard {
 
 }
 ```
-***Starscream is a WebSocket library for iOS and  macOS, we use it so that we can connect to the server from the clients***
+***Starscream is a WebSocket library for iOS and  macOS, we use it so that the clients can connect to the server.***
 
 This stubs out what you need to set up a WebSocket client in your macOS app. This might look familiar when you start working with your iOS client, but you will notice a couple of key differences.
 
-At the very bottom of this file, outside of the scope of your `DisasterSocketClient` scope, add the following extension:
+At the very bottom of this file, outside of the scope of your `DisasterSocketClientDashboard` scope, add the following extension:
 
 ```swift
-extension DisasterSocketClient: WebSocketDelegate {
+extension DisasterSocketClientDashboard: WebSocketDelegate {
     func websocketDidConnect(socket: WebSocketClient) {
         delegate?.clientConnected(client: self)
     }
@@ -74,10 +74,10 @@ extension DisasterSocketClient: WebSocketDelegate {
 }
 ```
 
-You'll add more to this in just a moment, but first let's set up your initializer - add the following code at the top of your `DisasterSocketClient` class:
+You'll add more to this in just a moment, but first let's set up your initializer - add the following code at the top of your `DisasterSocketClientDashboard` class:
 
 ```swift
-weak var delegate: DisasterSocketClientDelegate?
+weak var delegate: DisasterSocketClientDashboardDelegate?
 var address: String
 var id: String?
 public var disasterSocket: WebSocket?
@@ -110,11 +110,11 @@ public func disconnect() {
 }
 ```
 
-Lastly, go back to `ViewController.swift`, and inside the top of your `ViewController` definition, update your code to look like so:
+Lastly, go to `ViewController.swift`, and inside the top of your `ViewController` definition, update your code to look like so:
 
 ```swift
 class ViewController: NSViewController {
-    var disasterClient = DisasterSocketClient(address: "localhost:8080")
+    var disasterClient = DisasterSocketClientDashboard(address: "localhost:8080")
     var annotationProcessingQueue = DispatchQueue(label: "com.ibm.annotationProcessingQueue")
     @IBOutlet weak var mapView: MKMapView?
     var annotations = [PersonAnnotation]()
@@ -127,11 +127,11 @@ class ViewController: NSViewController {
 }
 ```
 
-You'll need to make sure this controller conforms to your `DisasterSocketClientDelegate`. At the bottom of this file, add the following extension:
+You'll need to make sure this controller conforms to your `DisasterSocketClientDashboardDelegate`. At the bottom of this file, add the following extension:
 
 ```swift
-extension ViewController: DisasterSocketClientDelegate {
-    func statusReported(client: DisasterSocketClient, person: Person) {
+extension ViewController: DisasterSocketClientDashboardDelegate {
+    func statusReported(client: DisasterSocketClientDashboard, person: Person) {
 
     }
 
@@ -139,7 +139,7 @@ extension ViewController: DisasterSocketClientDelegate {
 
     }
 
-    func clientConnected(client: DisasterSocketClient) {
+    func clientConnected(client: DisasterSocketClientDashboard) {
         guard let currentLocation = mapView?.userLocation.coordinate else {
             return
         }
@@ -147,21 +147,21 @@ extension ViewController: DisasterSocketClientDelegate {
         self.mapView?.setRegion(region, animated: true)
     }
 
-    func clientDisconnected(client: DisasterSocketClient) {
+    func clientDisconnected(client: DisasterSocketClientDashboard) {
         print("client disconnected")
     }
 
-    func clientErrorOccurred(client: DisasterSocketClient, error: Error) {
+    func clientErrorOccurred(client: DisasterSocketClientDashboard, error: Error) {
         print("error occurred: \(error.localizedDescription)")
     }
 
-    func clientReceivedToken(client: DisasterSocketClient, token: RegistrationToken) {
+    func clientReceivedToken(client: DisasterSocketClientDashboard, token: RegistrationToken) {
 
     }
 }
 ```
 
-Then scroll down to the `connectDashboard:` function that occurs whenever you click the "Connect" button:
+Then scroll up to the `connectDashboard:` function that occurs whenever you click the "Connect" button:
 
 ```swift
 disasterClient.attemptConnection()
@@ -174,7 +174,7 @@ Make sure your server is running. Build and run your macOS dashboard, and accept
 
 Open up your server, and open `MyWebSocketService.swift`. Scroll to your `connected:` function, and remember that you are using a model object to verify that the dashboard should hang onto an id. In a second, you're going to go back to your dashboard and add code to handle the receipt of this token, but first, also notice that, whenever you receive a payload of type `Data` over your connection, you have a function to check what type of object it can be decoded into, and you act accordingly. Now let's make sure that your dashboard responds appropriately when you receive a registration token from the server.
 
-Open your dashboard and go back to `DisasterSocketClient.swift`. Scroll to your `websocketDidReceiveData` function and add this:
+Open your dashboard and go back to `DisasterSocketClientDashboard.swift`. Scroll to your `websocketDidReceiveData` function and add this:
 
 ```swift
 parse(data)
@@ -202,7 +202,7 @@ public func confirm(_ dashboard: Dashboard) {
 }
 ```
 
-Now, open `ViewController.swift`, so you can write code to take advantage of this function. Go inside your extension for your `DisasterSocketClientDelegate` and add the following code to your `clientReceivedToken` function:
+Now, open `ViewController.swift`, so you can write code to take advantage of this function. Go inside your extension for your `DisasterSocketClientDashboardDelegate` and add the following code to your `clientReceivedToken` function:
 
 ```swift
 guard let currentLocation = mapView?.userLocation.coordinate else {

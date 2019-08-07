@@ -50,7 +50,7 @@ do {
 }
 ```
 
-By now, you are handling the registration of a person, storing their status, and sending that registration onto the dashboard. Open your macOS dashboard application, and open `DisasterSocketClient.swift`. Add this decode logic to the `parse:` function:
+By now, you are handling the registration of a person, storing their status, and sending that registration onto the dashboard. Open your macOS dashboard application, and open `DisasterSocketClientDashboard.swift`. Add this decode logic to the `parse:` function:
 
 ```swift
 if let person = try? JSONDecoder().decode(Person.self, from: data) {
@@ -59,7 +59,7 @@ if let person = try? JSONDecoder().decode(Person.self, from: data) {
 }
 ```
 
-Now, open `ViewController.swift` located in your server project and find the delegate function for `statusReported:`. Add the following code inside this function:
+Now, open `ViewController.swift` located in your dashboard project and find the delegate function for `statusReported:`. Add the following code inside this function:
 
 ```swift
 annotationProcessingQueue.sync {
@@ -100,7 +100,7 @@ Restart your server, run your dashboard, connect, then run your iOS client and c
 
 You're going to trigger a disaster from your dashboard, and the server will notify each iOS device connected to it. As each device reports its status, the dashboard will update asynchronously with the statuses as they come in.
 
-First, open `DisasterSocketClient.swift` on your dashboard. Add the following code underneath the `confirm:Dashboard` function:
+First, open `DisasterSocketClientDashboard.swift` on your dashboard. Add the following code underneath the `confirm:Dashboard` function:
 
 ```swift
 public func simulate(_ disaster: Disaster) {
@@ -112,7 +112,7 @@ public func simulate(_ disaster: Disaster) {
 }
 ```
 
-Now you have the ability to report a disaster. Scroll to the succintly named `vcConfDisasterName:` function in `ViewController.swift` and add the following code after `dismiss()` is called:
+Now you have the ability to report a disaster. Scroll `vcConfDisasterName:` function in `ViewController.swift` of your dashboard project and add the following code after `dismiss()` is called:
 
 ```swift
 guard let location = mapView?.userLocation.coordinate else {
@@ -149,7 +149,7 @@ for device in connectedDevices {
 
 This loops through all of the existing connections to iOS devices, and sends a message to each of them with the disaster type. All that's left is to handle this on your device!
 
-Open your iOS client project, and open `DisasterSocketClient.swift`. Add this code to the bottom of your `parse:Data` function:
+Open your iOS client project, and open `DisasterSocketClientiOS.swift`. Add this code to the bottom of your `parse:Data` function:
 
 ```swift
 else if let disaster = try? JSONDecoder().decode(Disaster.self, from: data) {
@@ -158,7 +158,7 @@ else if let disaster = try? JSONDecoder().decode(Disaster.self, from: data) {
 }
 ```
 
-Now, open `ViewController.swift` and add the following code inside the `clientReceivedDisaster:` function:
+Now, open `ViewController.swift` in your iOS project and add the following code inside the `clientReceivedDisaster:` function:
 
 ```swift
 DispatchQueue.main.async {

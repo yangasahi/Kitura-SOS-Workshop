@@ -87,7 +87,7 @@ In this section you will learn how to:
 
 Now we are going to build our Kitura application into a Docker image. This will involve two Docker images: a "build" image and a "run" image. Why are there two? Because it is best practice to make Docker images as small as possible, and while we will need the Swift compiler to build our application, we won't need the compiler to run it!
 
-First we need to build a Docker image to hold our Linux build toolchain. This includes the Linux Swift compiler, along with other components and has a larger storage footprint.
+First enter your server directory, we need to build a Docker image to hold our Linux build toolchain. This includes the Linux Swift compiler, along with other components and has a larger storage footprint.
 
 ```
 docker build -t server-build -f Dockerfile-tools .

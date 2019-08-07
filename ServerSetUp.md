@@ -25,7 +25,7 @@
 
 First, stop your server, let's add the ability to connect to it with a WebSocket connection.
 
-Open up the `MyWebSocketService.swift` file in the Services folder of your project, and add the following code underneath your import statement for `Foundation`:
+Open up the `MyWebSocketService.swift` file in the Services folder of your project, and add the following code underneath your import statement for `LoggerAPI`:
 
 ```swift
 import KituraWebSocket
