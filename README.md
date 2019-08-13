@@ -10,5 +10,38 @@
 </a>
 </p>
 
+## Background Info
 
-# PLACEHOLDER MAIN PAGE, DESCRIPTION ABOUT PROJECT
+If you've ever been in an area where there's a natural disaster that's occurred and has affected a large number of people, you may have seen a Facebook notification pop up asking you to report whether or not you are "safe". This has been helpful to families concerned about their loved ones when they can't reach them. Today, we are going to implement this feature with Kitura and WebSockets.
+
+## [Getting Started](https://github.com/dokun1/kitua-safe-lab/blob/master/01-GettingStarted.md)
+
+The first chapter of this guide will walk you through the necessary requirements that are needed to complete this guide.
+
+## [Server Setup](https://github.com/dokun1/kitua-safe-lab/blob/master/02-ServerSetUp.md)
+
+This chapter will be the setup for the server side of the application.
+
+## [Dashboard Setup](https://github.com/dokun1/kitua-safe-lab/blob/master/03-DashboardSetUp.md)
+
+This chapter will be the setup for the dashboard of the application.
+
+## [iOS Client Setup](https://github.com/dokun1/kitua-safe-lab/blob/master/04-iOSSetUp.md)
+
+This chapter will be the setup for the iOS client of the application.
+
+## [Status Reports and Disasters](https://github.com/dokun1/kitua-safe-lab/blob/master/05-StatusReportsAndDisasters.md)
+
+This chapter will be setting up the status reports and disaster handling of the application.
+
+## [Adding OpenAPI and REST API Support](https://github.com/dokun1/kitua-safe-lab/blob/master/06-OpenAndRESTAPI.md)
+
+This chapter will enable you to add OpenAPI and REST API functionality to the server.
+
+## [Using Docker and Kubernetes with your application](https://github.com/dokun1/kitua-safe-lab/blob/master/07-DockerAndKubernetes.md)
+
+This chapter will allow you to deploy your server on Docker in a Kubernetes cluster.
+
+## [Monitoring your application with Grafana and Prometheus](https://github.com/dokun1/kitua-safe-lab/blob/master/07-DockerAndKubernetes.md)
+
+This final chapter will allow you to monitor your server using Prometheus and Grafana.
