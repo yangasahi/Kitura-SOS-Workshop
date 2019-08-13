@@ -12,14 +12,14 @@
 
 ## Workshop Table of Contents:
 
-1. [Getting Started](https://github.com/dokun1/kitua-safe-lab/blob/master/README.md)
-2. [Setting up the Server](https://github.com/dokun1/kitua-safe-lab/blob/master/ServerSetUp.md)
-3. [Setting up the Dashboard](https://github.com/dokun1/kitua-safe-lab/blob/master/DashboardSetUp.md)
-4. [Setting up the iOS Client](https://github.com/dokun1/kitua-safe-lab/blob/master/iOSSetUp.md)
-5. [Handling Status Reports and Disasters](https://github.com/dokun1/kitua-safe-lab/blob/master/StatusReportsAndDisasters.md)
-6. [Setting up OpenAPI and REST API functionality](https://github.com/dokun1/kitua-safe-lab/blob/master/OpenAndRESTAPI.md)
-7. **[Build your app into a Docker image and deploy it on Kubernetes](https://github.com/dokun1/kitua-safe-lab/blob/master/DockerAndKubernetes.md)**
-8. [Enable monitoring through Prometheus/Grafana](https://github.com/dokun1/kitua-safe-lab/blob/master/PrometheusAndGrafana.md)
+1. [Getting Started](https://github.com/dokun1/kitua-safe-lab/blob/master/01-GettingStarted.md)
+2. [Setting up the Server](https://github.com/dokun1/kitua-safe-lab/blob/master/02-ServerSetUp.md)
+3. [Setting up the Dashboard](https://github.com/dokun1/kitua-safe-lab/blob/master/03-DashboardSetUp.md)
+4. [Setting up the iOS Client](https://github.com/dokun1/kitua-safe-lab/blob/master/04-iOSSetUp.md)
+5. [Handling Status Reports and Disasters](https://github.com/dokun1/kitua-safe-lab/blob/master/05-StatusReportsAndDisasters.md)
+6. [Setting up OpenAPI and REST API functionality](https://github.com/dokun1/kitua-safe-lab/blob/master/06-OpenAndRESTAPI.md)
+7. **[Build your app into a Docker image and deploy it on Kubernetes](https://github.com/dokun1/kitua-safe-lab/blob/master/07-DockerAndKubernetes.md)**
+8. [Enable monitoring through Prometheus/Grafana](https://github.com/dokun1/kitua-safe-lab/blob/master/08-PrometheusAndGrafana.md)
 
 # Docker and Kubernetes
 
