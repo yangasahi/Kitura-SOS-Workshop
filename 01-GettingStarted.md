@@ -67,7 +67,7 @@ git clone -b starter https://github.com/IBM/Kitura-SOS-Workshop.git
 
 4. Run the main application on My Mac.
 ![Run on my mac](docs/sources/images/run-dashboard.png)
-
+    
 5. Accept location tracking for the application.
 
 You also may need to turn off code signing on your Xcode. To do this:
