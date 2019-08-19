@@ -224,4 +224,4 @@ Now that you've set up your dashboard to work with your server, it's time to set
 
 # Next Steps
 
-Continue to the [next page](./03-DashboardSetUp.md) to set up the iOS Client.
+Continue to the [next page](./04-iOSSetUp.md) to set up the iOS Client.
