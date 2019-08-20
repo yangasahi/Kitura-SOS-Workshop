@@ -197,4 +197,4 @@ Follow these steps in order:
 
 # Next Steps
 
-Continue to the [next page](./03-DashboardSetUp.md) to learn how to use Open API and REST API.
+Continue to the [next page](./06-OpenAndRESTAPI.md) to learn how to use Open API and REST API.
