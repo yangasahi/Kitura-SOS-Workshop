@@ -48,12 +48,12 @@ You can now connect to Prometheus at the following address:
 * [http://localhost:9090](http://localhost:9090)
 
 This should show the following screen:
-![prometheus-dashboard](./resources/prometheus-dashboard.png)
+![prometheus-dashboard](/docs/sources/images/prometheus-dashboard.png)
 Prometheus will be automatically collecting data from your Kitura application, allowing you to create graphs of your data.
 
 To build your first graph, type `os_cpu_used_ratio` into the **Expression** box and click on the **Graph** tab:
 
-![prometheus-graph](./resources/prometheus-graph.png)
+![prometheus-graph](/docs/sources/images/prometheus-graph.png)
 
 
 Whilst Prometheus provides the ability to build simple graphs and alerts, Grafana is commonly used to build more sophisticated dashboards.
@@ -78,7 +78,7 @@ You can now connect to Grafana at the following address, using `admin` and `PASS
 
 This should show the following screen:
 
-![grafana-home](./resources/grafana-home.png)
+![grafana-home](/docs/sources/images/grafana-home.png)
 
 In order to connect Grafana to the Prometheus service, next click on **Add data source**.
 
@@ -88,7 +88,7 @@ This opens a panel that should be filled out with the following entries:
 * Type: `Prometheus`
 * URL: `http://prometheus-server.prometheus.svc.cluster.local`
 
-![grafana-datasource](./resources/grafana-datasource.png)
+![grafana-datasource](/docs/sources/images/grafana-datasource.png)
 
 Now click on **Save & Test** to check the connection and save the Data Source configuration.
 
@@ -100,7 +100,7 @@ The Grafana community provides a large number of pre-created dashboards which ar
 
 To install one of those dashboards, click on the **+** icon and select **Import**
 
-![grafana-import-select](./resources/grafana-import-select.png)
+![grafana-import-select](/docs/sources/images/grafana-import-select.png)
 
 In the provided panel, enter `1621` into the **Grafana.com Dashboard** field in order to import dashboard number 1621, and press **Tab**.
 
@@ -108,17 +108,17 @@ This then loads the information on dashboard `1621` from Grafana.com.
 
 Set the **Prometheus** field to `Prometheus` and click **Import**.
 
-![grafana-dashboard-import](./resources/grafana-dashboard-import.png)
+![grafana-dashboard-import](/docs/sources/images/grafana-dashboard-import.png)
 
 This will then open the dashboard, which will automatically start populating with data about your Kubernetes cluster.
 
-![grafana-kube-dash](./resources/grafana-kube-dash.png)
+![grafana-kube-dash](/docs/sources/images/grafana-kube-dash.png)
 
 ## Adding Custom Graphs
 
 In order to extend the dashboard with your own graphs, click the **Add panel** icon on the top toolbar and select **Graph**.
 
-![grafana-add-graph](./resources/grafana-add-graph.png)
+![grafana-add-graph](/docs/sources/images/grafana-add-graph.png)
 
 This creates a blank graph. Select the **Panel Title** pull down menu and select **Edit**.
 

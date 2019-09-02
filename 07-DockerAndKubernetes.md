@@ -36,9 +36,9 @@ In this section you will learn about:
 
 Ensure you have installed [Docker for Desktop](https://www.docker.com/products/docker-desktop) on your Mac and enabled Kubernetes within the app. To do so, select the Docker icon in the Menu Bar and click `Preferences` > `Kubernetes` Tab > `Enable Kubernetes`. It will take a few moments to install and start up, but when the indicator light in the bottom right corner is green, you're ready to go!
 
-![docker-menubar](./resources/docker-menubar.png)
+![docker-menubar](/docs/sources/images/docker-menubar.png)
 
-![docker-app](./resources/docker-app.png)
+![docker-app](/docs/sources/images/docker-app.png)
 
 You are also going to need to install Helm using brew. Helm is a package manager for Kubernetes. By installing a Helm "chart" into your Kubernetes cluster you can quickly run all kinds of different applications.
 
@@ -49,7 +49,7 @@ brew install kubernetes-helm
 ```
 **Note:** if you get an error at this stage referencing a URL containing `kube`, then you already have Kubernetes installed on your system and are now running with multiple contexts. For the purposes of this workshop, change to the `docker-for-desktop` Kubernetes context by accessing Docker's menubar dropdown (not preferences like before), going into Kubernetes and under context, `docker-for-desktop`.
 
-![docker-context](./resources/docker-context.png)
+![docker-context](/docs/sources/images/docker-context.png)
 
 ## Helm
 
