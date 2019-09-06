@@ -67,7 +67,7 @@ git clone -b starter https://github.com/IBM/Kitura-SOS-Workshop.git
 
 4. Run the main application on My Mac.
 ![Run on my mac](docs/sources/images/run-dashboard.png)
-    
+
 5. Accept location tracking for the application.
 
 You also may need to turn off code signing on your Xcode. To do this:
@@ -85,7 +85,7 @@ You also may need to turn off code signing on your Xcode. To do this:
 5. Enter `xed .` into Terminal.
 6. Run the main application on an iOS simulator of your choice.
 7. Tap `Always Allow` when prompted for location tracking on the iOS app.
-8. With the iOS simulator open, click the `Debug` menu in the top toolbar, then Location -> Custom Location. Enter your coordinates here to simulate where you are. The San Jose Marriott is at `(37.330171, -121.888368)`.
+8. With the iOS simulator open, click the `Debug` menu in the top toolbar, then Location -> Custom Location. Enter your coordinates here to simulate where you are. 590 Madison Avenue is at `(40.762157, -73.973030)`.
 
 If you want to test this with real devices, either deploy this server and use the address, or use [ngrok](https://ngrok.com) to tunnel connections through to localhost, and then update the addresses in both the macOS and iOS clients. This can handle *many* concurrent connections, and the pins should drop when the responses are received.
 
