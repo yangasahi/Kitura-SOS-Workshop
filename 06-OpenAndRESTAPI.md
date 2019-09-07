@@ -51,9 +51,9 @@ A request to load all of the stored data typically consists of a `GET` request w
 
 1. In `Application.swift`, add a `getAllHandler()` function to the `App` class that responds with an array of all the connected people as an array:
   ```swift
-  func getAllHandler(completion: ([Person]?, RequestError?) -> Void) {
-    return completion(self.disasterService.connectedPeople, nil)
-  }
+	func getAllHandler(completion: ([Person]?, RequestError?) -> Void) {
+		return completion(self.disasterService.connectedPeople, nil)
+	}
   ```
 
 2. Register a handler for a `GET` request on `/users` that calls your new function.  Add the following at the end of the `postInit()`:  
