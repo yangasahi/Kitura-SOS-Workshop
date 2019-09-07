@@ -53,10 +53,16 @@ class DisasterSocketService: WebSocketService {
 }
 ```
 
-This is all you need to set up a WebSocket connection. In order to make sure that this service is live, open `Application.swift`, add the line `import KituraWebSocket` at the very top of this file, and add this line of code to the bottom of the `postInit()` function:
+This is all you need to set up a WebSocket connection. In order to make sure that this service is live, open `Application.swift`, add the line `import KituraWebSocket` at the very top of this file, and add this line of code to your `App` class, just below the definition of `let cloudEnv = CloudEnv()`:
 
 ```swift
-WebSocket.register(service: DisasterSocketService(), onPath: "/disaster")
+let disasterService = DisasterSocketService()
+```
+
+Now, at the bottom of the `postInit()` function, you can register your WebSocket service with Kitura:
+
+```swift
+WebSocket.register(service: self.disasterService, onPath: "/disaster")
 ```
 
 Run your server. Open Terminal and enter the following command:
