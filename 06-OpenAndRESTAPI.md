@@ -50,7 +50,6 @@ REST APIs typically consist of an HTTP request using a verb such as `POST`, `PUT
 A request to load all of the stored data typically consists of a `GET` request with no data, which the server then handles and responds with an array of all the data in the store.
 
 1. In `Application.swift`, add a `getAllHandler()` function to the `App` class that responds with an array of all the connected people as an array:
-
   ```swift
   func getAllHandler(completion: ([Person]?, RequestError?) -> Void) {
     return completion(self.disasterService.connectedPeople, nil)
