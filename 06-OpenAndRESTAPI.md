@@ -25,9 +25,9 @@
 
 ## Try out OpenAPI in Kitura
 
-Now, you can open [http://localhost:8080/openapi](http://localhost:8080/openapi) and view the live OpenAPI specification of your Kitura application in JSON format.
+With your Kitura server still running, open [http://localhost:8080/openapi/ui](http://localhost:8080/openapi/ui) and view SwaggerUI, a popular API development tool. SwaggerUI shows all the REST endpoints defined on your server.
 
-You can also open [http://localhost:8080/openapi/ui](http://localhost:8080/openapi/ui) and view SwaggerUI, a popular API development tool. You will see one route defined: the GET `/health` route. Click on the route to expand it, then click "Try it out!" to query the API from inside SwaggerUI.
+You will see one route defined: the GET `/health` route. Click on the route to expand it, then click "Try it out!" to query the API from inside SwaggerUI.
 
 You should see a Response Body in JSON format, like:
 
@@ -35,13 +35,13 @@ You should see a Response Body in JSON format, like:
 {
   "status": "UP",
   "details": [],
-  "timestamp": "2018-06-04T16:03:17+0000"
+  "timestamp": "2019-09-07T14:38:07+0000"
 }
 ```
 
 and a Response Code of 200.
 
-Congratulations, you have added OpenAPI support to your Kitura application and used SwaggerUI to query a REST API!
+Congratulations, you have used SwaggerUI to query a REST API!
 
 ## Add Support for handling a `GET` request on `/users`
 
