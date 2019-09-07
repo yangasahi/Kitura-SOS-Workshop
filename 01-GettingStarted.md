@@ -39,10 +39,11 @@
 
 ### Clone repository
 
-First, clone the starter branch of the repository by running this terminal command:
+First, clone the starter branch of the repository by running these terminal commands:
 
 ```bash
 git clone -b starter https://github.com/IBM/Kitura-SOS-Workshop.git
+cd Kitura-SOS-Workshop
 ```
 
 **Note:** The `master` branch is the completed workshop, whereas the `starter` branch is the branch we will be using.
