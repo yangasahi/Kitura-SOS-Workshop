@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,8 +15,8 @@
 		539AC6AF22A03B4B0055B1E0 /* DisasterSocketClientDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539AC6AE22A03B4B0055B1E0 /* DisasterSocketClientDashboard.swift */; };
 		539AC8A922A052810055B1E0 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 539AC8A822A052810055B1E0 /* NetworkExtension.framework */; };
 		539AC8D122A2D5F20055B1E0 /* DisasterSegueConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539AC8D022A2D5F20055B1E0 /* DisasterSegueConfirmationViewController.swift */; };
-		539AC8D522A2DA9D0055B1E0 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539AC8D422A2DA9D0055B1E0 /* Models.swift */; };
 		539AC8D922A2E09A0055B1E0 /* Annotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539AC8D822A2E09A0055B1E0 /* Annotations.swift */; };
+		A7AF00642323E6DB0003BEC4 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AF00632323E6DB0003BEC4 /* Models.swift */; };
 		FB43C26A70E1E11E761AD8FB /* Pods_kitura_safe_lab_dashboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1B5BDBBBB384A487999E87 /* Pods_kitura_safe_lab_dashboard.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,9 +34,9 @@
 		539AC6AE22A03B4B0055B1E0 /* DisasterSocketClientDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisasterSocketClientDashboard.swift; sourceTree = "<group>"; };
 		539AC8A822A052810055B1E0 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		539AC8D022A2D5F20055B1E0 /* DisasterSegueConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisasterSegueConfirmationViewController.swift; sourceTree = "<group>"; };
-		539AC8D422A2DA9D0055B1E0 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Models.swift; path = "../../Kitura-Safe-Server/Sources/Application/Model/Models.swift"; sourceTree = "<group>"; };
 		539AC8D822A2E09A0055B1E0 /* Annotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotations.swift; sourceTree = "<group>"; };
 		9F1B5BDBBBB384A487999E87 /* Pods_kitura_safe_lab_dashboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_kitura_safe_lab_dashboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7AF00632323E6DB0003BEC4 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Models.swift; path = "../../kitura-sos-server/Sources/Application/Model/Models.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,12 +74,12 @@
 		539AC69B22A0377B0055B1E0 /* kitura-safe-lab-dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				A7AF00632323E6DB0003BEC4 /* Models.swift */,
 				539AC69C22A0377B0055B1E0 /* AppDelegate.swift */,
 				539AC69E22A0377B0055B1E0 /* ViewController.swift */,
 				539AC8D822A2E09A0055B1E0 /* Annotations.swift */,
 				539AC8D022A2D5F20055B1E0 /* DisasterSegueConfirmationViewController.swift */,
 				539AC6AE22A03B4B0055B1E0 /* DisasterSocketClientDashboard.swift */,
-				539AC8D422A2DA9D0055B1E0 /* Models.swift */,
 				539AC6A022A0377D0055B1E0 /* Assets.xcassets */,
 				539AC6A222A0377D0055B1E0 /* Main.storyboard */,
 				539AC6A522A0377D0055B1E0 /* Info.plist */,
@@ -217,16 +217,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-kitura-safe-lab-dashboard/Pods-kitura-safe-lab-dashboard-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-kitura-safe-lab-dashboard/Pods-kitura-safe-lab-dashboard-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-kitura-safe-lab-dashboard/Pods-kitura-safe-lab-dashboard-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -243,9 +238,9 @@
 				539AC69F22A0377B0055B1E0 /* ViewController.swift in Sources */,
 				539AC69D22A0377B0055B1E0 /* AppDelegate.swift in Sources */,
 				539AC8D922A2E09A0055B1E0 /* Annotations.swift in Sources */,
+				A7AF00642323E6DB0003BEC4 /* Models.swift in Sources */,
 				539AC8D122A2D5F20055B1E0 /* DisasterSegueConfirmationViewController.swift in Sources */,
 				539AC6AF22A03B4B0055B1E0 /* DisasterSocketClientDashboard.swift in Sources */,
-				539AC8D522A2DA9D0055B1E0 /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
