@@ -86,7 +86,7 @@ Next, go back to `MyWebSocketService.swift` and add the following three stored p
 ```swift
 private var allConnections = [WebSocketConnection]()
 private var dashboardConnection: Dashboard?
-private var connectedPeople = [Person]()
+public var connectedPeople = [Person]()
 ```
 
 Next, add these three function signatures, which you will use later:
