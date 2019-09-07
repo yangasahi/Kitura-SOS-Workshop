@@ -28,9 +28,6 @@ First, stop your server, let's add the ability to connect to it with a WebSocket
 Open up the `MyWebSocketService.swift` file in the Services folder of your project, and add the following code underneath your import statement for `LoggerAPI`:
 
 ```swift
-import KituraWebSocket
-import LoggerAPI
-
 extension WebSocketConnection: Equatable {
     public static func == (lhs: WebSocketConnection, rhs: WebSocketConnection) -> Bool {
         return lhs.id == rhs.id
