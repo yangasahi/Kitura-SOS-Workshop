@@ -86,7 +86,7 @@ For this request, we want to return all the info on a single specific user by us
 
 ## Add Support for handling a `GET` request on `/stats`
 
-For this request, we want to find several statistics about the server. We will display:
+For this request, we want to return several statistics about the server. We will display:
 
 * The start time of the server
 * The current time
@@ -94,93 +94,83 @@ For this request, we want to find several statistics about the server. We will d
 * The percentage of connected users reported as unsafe
 * The percentage of connected users reported as unreported
 
-1. Register a handler for a `GET` request on `/stats` that loads the data  
-   Add the following into the `postInit()` function:  
+1. In `Models.swift` add the following new structure definition. This is the data we will be returning as JSON.
+    ```swift
+    struct ServerStats: Codable {
+        var safePercentage: Double
+        var unsafePercentage: Double
+        var unreportedPercentage: Double
+        var startTime: String
+        var currentTime: String
+    }
+    ```
+
+2. Back in `Application.swift`, add a new property to the `App` class:
+    ````swift
+    var startDate = ""
+    ````
+
+3. Then, at the start of the `postInit()` function, add this code to initialize the property:
+    ````swift
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T 'HH:mm:ss"
+    self.startDate = dateFormatter.string(from: Date())
+    ````
+
+4. Add this new `getStats()` function in your `App` class:
+
+    ```swift
+    func getStats() -> ServerStats {
+        let connectedPeople = self.disasterService.connectedPeople
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T 'HH:mm:ss"
+        let currentDate = dateFormatter.string(from: Date())
+
+        var result = ServerStats(safePercentage: 0.0,
+                                                unsafePercentage: 0.0,
+                                                unreportedPercentage: 0.0,
+                                                startTime: self.startDate,
+                                                currentTime: currentDate)
+
+        let connectedCount = connectedPeople.count
+        if connectedCount > 0 {
+            var safeCount = 0
+            var unsafeCount = 0
+            var unreportedCount = 0
+
+            for person in connectedPeople {
+                if person.status.status == "Safe" {
+                    safeCount += 1
+                } else if person.status.status == "Unsafe" {
+                    unsafeCount += 1
+                } else {
+                    unreportedCount += 1
+                }
+            }
+
+            let connected = Double(connectedCount)
+            result.safePercentage = (Double(safeCount) / connected) * 100
+            result.unsafePercentage = (Double(safeCount) / connected) * 100
+            result.unreportedPercentage = (Double(safeCount) / connected) * 100
+        }
+        return result
+    }
+    ```
+
+5. Implement a `getStatsHandler()` function that responds with all the data. Add the following as a function in the `App` class:
+    ```swift
+    func getStatsHandler(completion: (ServerStats?, RequestError?) -> Void ) {
+        return completion(getStats(), nil)
+    }
+    ```
+
+6. Register a new handler for a `GET` request on `/stats` that returns the statistics.  Add the following at the end of the `postInit()` function:  
    ```swift
 	router.get("/stats", handler: getStatsHandler)
    ```
-2. Create a global variable in `Application.swift` outside the scope of the App class that stores the time of the server when launched:
-   ```swift
-   public var startDate = String()
-   ```
-   Then at the start of the `postInit()` method, add:
-   ```swift
-   let date: Date = Date()
-   let dateFormatter = DateFormatter()
-   dateFormatter.dateFormat = "yyyy-MM-dd'T 'HH:mm:ss"
-   startDate = dateFormatter.string(from: date)
-   ```
 
-3. Create a Codable structure in `Models.swift` that holds all the values we need for our statistics:
-
-```swift
-struct StatsStructure: Codable {
-    var safePercentage: Double
-    var unsafePercentage: Double
-    var unreportedPercentage: Double
-    var startTime: String
-    var currentTime: String
-}
-```
-
-4. Implement a public `getStats` function in `MyWebSocketService.swift`, that returns all the statistics we need for our server:
-
-  ```swift
-  public func getStats() -> StatsStructure? {
-
-    let date: Date = Date()
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyy-MM-dd'T 'HH:mm:ss"
-    let currentDate = dateFormatter.string(from: date)
-
-    var currentStatsStructure = StatsStructure(safePercentage: 0.0, unsafePercentage: 0.0, unreportedPercentage: 0.0, startTime: startDate, currentTime: currentDate)
-
-    if connectedPeople.count>0 {
-
-      let percentNumber = 100/Double(connectedPeople.count)
-      var safeNumber = 0.0
-      var unsafeNumber = 0.0
-      var unreportedNumber = 0.0
-
-      for person in connectedPeople {
-
-        if person.status.status == "Safe" {
-          safeNumber += 1.0
-        }
-
-        else if person.status.status == "Unsafe" {
-          unsafeNumber += 1.0
-        }
-
-        else {
-          unreportedNumber += 1.0
-        }
-
-        }
-
-        let percentageSafe = percentNumber*safeNumber
-        currentStatsStructure.safePercentage = percentageSafe
-
-        let percentageUnsafe = percentNumber*unsafeNumber
-        currentStatsStructure.unsafePercentage = percentageUnsafe
-
-        let percentageUnreported = percentNumber*safeNumber
-        currentStatsStructure.unreportedPercentage = percentageUnreported
-
-        }
-
-        return currentStatsStructure
-
-    }
-  ```
-5.  Implement a `getStatsHandler()` that responds with all the data.  Add the following as a function in the App class:
-
-  ```swift
-  func getStatsHandler(completion: (StatsStructure?, RequestError?) -> Void ) {
-        return completion(disasterService.getStats(), nil)
-    }
-  ```
-6. Restart your server and refresh SwaggerUI again and view your new GET route.
+7. Restart your server and refresh SwaggerUI again and view your new GET route. Try it out and see the statistics about your server!
 
 # Next Steps
 
