@@ -142,4 +142,4 @@ Put a breakpoint in your `connected` function. Build and run your server, and ma
 
 # Next Steps
 
-Continue to the [next page](./03-DashboardSetUp.md) to set up the Dashboard.
+Continue to the [next page](./03-DashboardSetUp.md) to code up the Dashboard.
