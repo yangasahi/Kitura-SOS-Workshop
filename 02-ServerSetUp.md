@@ -33,28 +33,23 @@ extension WebSocketConnection: Equatable {
         return lhs.id == rhs.id
     }
 }
+
 class DisasterSocketService: WebSocketService {
+    func connected(connection: WebSocketConnection) {
+        Log.info("connection established: \(connection)")
+    }
 
-}
-```
+    func disconnected(connection: WebSocketConnection, reason: WebSocketCloseReasonCode) {
+        Log.info("Connection dropped for \(connection.id), reason: \(reason)")
+    }
 
-Next, you're going to add some protocol stubs inside your `DisasterSocketService`:
+    func received(message: Data, from: WebSocketConnection) {
+        Log.info("data message received: \(String(describing: String(data: message, encoding: .utf8)))")
+    }
 
-```swift
-func connected(connection: WebSocketConnection) {
-    Log.info("connection established: \(connection)")
-}
-
-func disconnected(connection: WebSocketConnection, reason: WebSocketCloseReasonCode) {
-    Log.info("Connection dropped for \(connection.id), reason: \(reason)")
-}
-
-func received(message: Data, from: WebSocketConnection) {
-    Log.info("data message received: \(String(describing: String(data: message, encoding: .utf8)))")
-}
-
-func received(message: String, from: WebSocketConnection) {
-    Log.info("string message received: \(message)")
+    func received(message: String, from: WebSocketConnection) {
+        Log.info("string message received: \(message)")
+    }
 }
 ```
 
