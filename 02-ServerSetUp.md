@@ -107,9 +107,10 @@ private func notifyDevices(of disaster: Disaster) {
 }
 ```
 
-First, you need to act whenever a client connects to you. You will send them a "token", which lets the client know how to identify itself for all future communications. Add this code to your `connected:` function in `DisasterSocketClient`:
+First, you need to act whenever a client connects to you. You will send them a "token", which lets the client know how to identify itself for all future communications. Add this code to your `connected:` function in `DisasterSocketService`:
 
 ```swift
+Log.info("connection established: \(connection)")
 allConnections.append(connection)
 do {
     connection.send(message: try JSONEncoder().encode(RegistrationToken(tokenID: connection.id)))
