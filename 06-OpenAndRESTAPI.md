@@ -63,35 +63,26 @@ A request to load all of the stored data typically consists of a `GET` request w
 
 3. Restart your server and refresh SwaggerUI again and view your new GET route. Clicking "Try it out!" will return the empty array (`[]`), because there are no current connections to the server. Experiment with connecting to the server and using your GET method to see all the connections. REST APIs are easy!
 
-## Add Support for handling a `GET` request on `/users:id`
+## Add Support for handling a `GET` request on `/users/{id}`
 
-For this request, we want to return all the info on a specific user by using their unique id
+For this request, we want to return all the info on a single specific user by using their unique id.
 
-1. Register a handler for a `GET` request on `/users` that loads the data.  Add the following into the `postInit()` function:  
+1. In `Application.swift`, add a `getOneHandler()` function to the `App` class that finds the person matching the given `id`. If the person isn't found, we return HTTP error code `404` (Not Found), otherwise we return the person:
+  ```swift
+	func getOneHandler(id: String, completion:(Person?, RequestError?) -> Void ) {
+		guard let person = self.disasterService.connectedPeople.first(where: { $0.id == id}) else {
+			return completion(nil, .notFound)
+		}
+		completion(person, nil)
+	}
+  ```
+
+2. Register a handler for a `GET` request on `/users` that calls your new function.  Add the following at the end of the `postInit()`:  
    ```swift
 	router.get("/users", handler: getOneHandler)
    ```
-2. Implement a public `getOnePerson` function in `MyWebSocketService.swift`, that returns a Person object, beneath your `getAllConnections` function
 
-  ```swift
-  public func getOnePerson(id: String) -> Person? {
-
-        for person in connectedPeople {
-            if person.id == id {
-                return person
-            }
-        }
-        return nil
-    }
-  ```
-3.  Implement the `getOneHandler()` that takes a String that is the person's specific id and responds with all the data associated with that user.  Add the following as a function in the App class:
-
-  ```swift
-  func getOneHandler(id: String, completion:(Person?, RequestError?) -> Void ) {
-        return completion(disasterService.getOnePerson(id: id), nil)
-    }
-  ```
-4. Restart your server and refresh SwaggerUI again and view your new GET route.
+3. Restart your server and refresh SwaggerUI again and view your new GET route.
 
 ## Add Support for handling a `GET` request on `/stats`
 
