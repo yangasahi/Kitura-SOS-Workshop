@@ -92,4 +92,4 @@ If you want to test this with real devices, either deploy this server and use th
 
 # Next Steps
 
-Continue to the [next page](./02-ServerSetUp.md) to set up the Server.
+Continue to the [next page](./02-ServerSetUp.md) to code up your Server.
