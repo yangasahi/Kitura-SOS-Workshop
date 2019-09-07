@@ -49,25 +49,20 @@ REST APIs typically consist of an HTTP request using a verb such as `POST`, `PUT
 
 A request to load all of the stored data typically consists of a `GET` request with no data, which the server then handles and responds with an array of all the data in the store.
 
-1. Register a handler for a `GET` request on `/users` that loads the data.  Add the following into the `postInit()` function of the `Application.swift` file in the `kitura-safe-server` directory:  
+1. In `Application.swift`, add a `getAllHandler()` function to the `App` class that responds with an array of all the connected people as an array:
+
+  ```swift
+  func getAllHandler(completion: ([Person]?, RequestError?) -> Void) {
+    return completion(self.disasterService.connectedPeople, nil)
+  }
+  ```
+
+2. Register a handler for a `GET` request on `/users` that calls your new function.  Add the following at the end of the `postInit()`:  
    ```swift
 	router.get("/users", handler: getAllHandler)
    ```
-2. Implement a public `getAllConnections` function in `MyWebSocketService.swift` that returns an array of the connected people above the `connected` function
 
-  ```swift
-  public func getAllConnections() -> [Person]? {
-        return connectedPeople
-    }
-  ```
-3.  Implement the `getAllHandler()` that responds with all of the connected people as an array.  Add the following as a function in the App class:
-
-  ```swift
-  func getAllHandler(completion: ([Person]?, RequestError?) -> Void ) {
-    return completion(disasterService.getAllConnections(), nil)
-  }
-  ```
-4. Restart your server and refresh SwaggerUI again and view your new GET route. Clicking "Try it out!" will return the empty array (because there are no current connections to the server), but experiment with connecting to the server and using the GET method to see all the connections. REST APIs are easy!
+3. Restart your server and refresh SwaggerUI again and view your new GET route. Clicking "Try it out!" will return the empty array (`[]`), because there are no current connections to the server. Experiment with connecting to the server and using your GET method to see all the connections. REST APIs are easy!
 
 ## Add Support for handling a `GET` request on `/users:id`
 
