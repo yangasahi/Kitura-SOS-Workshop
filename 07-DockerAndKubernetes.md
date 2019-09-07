@@ -34,7 +34,7 @@ In this section you will learn about:
 * Installing Docker for Desktop
 * Installing Helm
 
-Ensure you have installed [Docker for Desktop](https://www.docker.com/products/docker-desktop) on your Mac and enabled Kubernetes within the app. To do so, select the Docker icon in the Menu Bar and click `Preferences` > `Kubernetes` Tab > `Enable Kubernetes`. It will take a few moments to install and start up, but when the indicator light in the bottom right corner is green, you're ready to go!
+Ensure you have installed [Docker for Desktop](https://www.docker.com/products/docker-desktop) on your Mac and enabled Kubernetes within the app. To do so, select the Docker icon in the Menu Bar and click `Preferences` > `Kubernetes` Tab > `Enable Kubernetes`. It will take a while to install and start up, but when the indicator light in the bottom right corner is green, you're ready to go!
 
 ![docker-menubar](/docs/sources/images/docker-menubar.png)
 
