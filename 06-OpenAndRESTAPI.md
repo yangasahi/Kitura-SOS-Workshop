@@ -151,8 +151,8 @@ For this request, we want to return several statistics about the server. We will
 
             let connected = Double(connectedCount)
             result.safePercentage = (Double(safeCount) / connected) * 100
-            result.unsafePercentage = (Double(safeCount) / connected) * 100
-            result.unreportedPercentage = (Double(safeCount) / connected) * 100
+            result.unsafePercentage = (Double(unsafeCount) / connected) * 100
+            result.unreportedPercentage = (Double(unreportedCount) / connected) * 100
         }
         return result
     }
